@@ -1,0 +1,29 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.13/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.13",
+  "version": "1.0.0",
+  "id": "a7a7c001-d3c3-4112-b3e3-96a8f7f8a7f7",
+  "packageName": "com.authbloom03",
+  "name": {
+    "short": "authbloom03"
+  },
+  "developer": {
+    "name": "You",
+    "websiteUrl": "https://authbloom03.onrender.com",
+    "privacyUrl": "https://authbloom03.onrender.com/privacy",
+    "termsOfUseUrl": "https://authbloom03.onrender.com/terms"
+  },
+  "staticTabs": [
+    {
+      "entityId": "authbloom03Tab",
+      "name": "authbloom03",
+      "contentUrl": "https://authbloom03.onrender.com",
+      "websiteUrl": "https://authbloom03.onrender.com",
+      "scopes": ["personal"]
+    }
+  ],
+  "validDomains": [
+    "authbloom03.onrender.com",
+    "internal.bloomfire.bs"
+  ]
+}
