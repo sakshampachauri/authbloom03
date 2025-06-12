@@ -36,8 +36,8 @@ app.get("/auth-callback", async (req, res) => {
         grant_type: "authorization_code",
         code,
         redirect_uri: "https://authbloom03.onrender.com/auth-callback",
-        client_id: "CqtmGS1SIaHNfT1tl0o",
-        client_secret: "-U3yXp9CY"
+        client_id: "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o",
+        client_secret: "sG4VsM_aQWIY6ikvHohxugRnFivwfg4STD-U3yXp9CY"
       })
     });
 
