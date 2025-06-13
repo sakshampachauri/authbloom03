@@ -9,6 +9,7 @@ const App = () => {
   useEffect(() => {
     microsoftTeams.app.initialize().then(() => {
       setIsTeamsReady(true);
+      console.log("running app")
     }).catch(err => {
       console.error("Teams SDK failed to initialize", err);
     });
@@ -41,8 +42,9 @@ const App = () => {
     const clientId = "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o";
     const redirectUri = "https://authbloom03.onrender.com/auth-callback";
 
-    const oauthUrl = `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=`;
+    const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid profile email&state=${encodeURIComponent(communityUrl)}&code_challenge=${challenge}&code_challenge_method=S256`;
 
+     console.log("calling authentication")
     microsoftTeams.authentication.authenticate({
       url: oauthUrl,
       width: 600,
