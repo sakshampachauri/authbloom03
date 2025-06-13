@@ -93,7 +93,7 @@ const handleClick = async () => {
 
     const oauthUrl = `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
       redirectUri
-    )}&response_type=code&scope=openid profile email&state=${encodeURIComponent(
+    )}&response_type=code&scope=&state=${encodeURIComponent(
       communityUrl
     )}&code_challenge=${challenge}&code_challenge_method=S256`;
 
