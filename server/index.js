@@ -12,17 +12,48 @@ app.get("/health", (req, res) => {
   res.send("OK");
 });
 
+// app.get("/auth-callback", (req, res) => {
+//   console.log("value of auth callback",res)
+//   const code = req.query.code;
+//   const state = req.query.state;
+
+//   res.send(`
+//     <script>
+//       window.opener.microsoftTeams.authentication.notifySuccess("${code}");
+//       window.close();
+//     </script>
+//   `);
+// });
+
+
 app.get("/auth-callback", (req, res) => {
-  console.log("value of auth callback",res)
   const code = req.query.code;
   const state = req.query.state;
 
-  res.send(`
-    <script>
-      window.opener.microsoftTeams.authentication.notifySuccess("${code}");
-      window.close();
-    </script>
-  `);
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head><title>OAuth Callback</title></head>
+      <body>
+        <script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
+        <script>
+          (async function() {
+            try {
+              await microsoftTeams.app.initialize();
+              microsoftTeams.authentication.notifySuccess("${code}");
+            } catch (e) {
+              console.error("notifySuccess failed:", e);
+              microsoftTeams.authentication.notifyFailure("Failed to notify Teams");
+            } finally {
+              window.close();
+            }
+          })();
+        </script>
+      </body>
+    </html>
+  `;
+
+  res.send(html);
 });
 
 app.get("/exchange-token", async (req, res) => {
