@@ -28,48 +28,107 @@ const App = () => {
     return await crypto.subtle.digest('SHA-256', data);
   };
 
-  const handleClick = async () => {
-    if (!isTeamsReady) return;
-    if (!communityUrl) {
-      alert("Please enter your community URL.");
-      return;
-    }
+//   const handleClick = async () => {
+//     if (!isTeamsReady) return;
+//     if (!communityUrl) {
+//       alert("Please enter your community URL.");
+//       return;
+//     }
 
+//     const verifier = base64URLEncode(crypto.getRandomValues(new Uint8Array(32)));
+//     setCodeVerifier(verifier);
+//     const challenge = base64URLEncode(await sha256(verifier));
+
+//     const clientId = "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o";
+//     const redirectUri = "https://authbloom03.onrender.com/auth-callback";
+
+// //     const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=&state=${encodeURIComponent(
+// //   communityUrl
+// // )}&code_challenge=${challenge}&code_challenge_method=S256`;
+
+// const oauthUrl = 'https://persistent.bloomfire.bz/oauth/authorize?client_id=Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o&redirect_uri=https%3A%2F%2Fauthbloom03.onrender.com%2Fauth-callback&response_type=code&scope='
+  
+//      console.log("calling authentication",oauthUrl);
+//     microsoftTeams.authentication.authenticate({
+//       url: oauthUrl,
+//       width: 600,
+//       height: 535,
+//       successCallback: (code) => {
+//         console.log("inside success callBack")
+//         fetch(`/exchange-token?code=${code}&verifier=${verifier}`)
+//           .then(res => res.json())
+//           .then(data => {
+//             alert("Access Token: " + data.access_token);
+//           }).catch(err => {
+//             alert("Token exchange failed");
+//             console.error(err);
+//           });
+//       },
+//       failureCallback: (reason) => {
+//         console.error("OAuth Failed:", reason);
+//         alert("Sign in failed or was cancelled.");
+//       }
+//     });
+//   };
+
+
+const handleClick = async () => {
+  if (!isTeamsReady) {
+    alert("Microsoft Teams SDK is not ready yet.");
+    return;
+  }
+  if (!communityUrl) {
+    alert("Please enter your community URL.");
+    return;
+  }
+
+  try {
     const verifier = base64URLEncode(crypto.getRandomValues(new Uint8Array(32)));
     setCodeVerifier(verifier);
+
     const challenge = base64URLEncode(await sha256(verifier));
 
     const clientId = "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o";
     const redirectUri = "https://authbloom03.onrender.com/auth-callback";
 
-//     const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=&state=${encodeURIComponent(
-//   communityUrl
-// )}&code_challenge=${challenge}&code_challenge_method=S256`;
+    const oauthUrl = `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+      redirectUri
+    )}&response_type=code&scope=openid profile email&state=${encodeURIComponent(
+      communityUrl
+    )}&code_challenge=${challenge}&code_challenge_method=S256`;
 
-const oauthUrl = 'https://persistent.bloomfire.bz/oauth/authorize?client_id=Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o&redirect_uri=https%3A%2F%2Fauthbloom03.onrender.com%2Fauth-callback&response_type=code&scope='
-  
-     console.log("calling authentication",oauthUrl);
+    console.log("✅ OAuth URL:", oauthUrl);
+
     microsoftTeams.authentication.authenticate({
       url: oauthUrl,
       width: 600,
       height: 535,
-      successCallback: (code) => {
-        console.log("inside success callBack")
-        fetch(`/exchange-token?code=${code}&verifier=${verifier}`)
-          .then(res => res.json())
-          .then(data => {
-            alert("Access Token: " + data.access_token);
-          }).catch(err => {
-            alert("Token exchange failed");
-            console.error(err);
-          });
+      successCallback: async (code) => {
+        try {
+          console.log("✅ Auth success, exchanging token...");
+          const res = await fetch(`/exchange-token?code=${code}&verifier=${verifier}`);
+          const data = await res.json();
+          if (data.access_token) {
+            alert("✅ Access Token: " + data.access_token);
+          } else {
+            console.error("❌ Token exchange failed:", data);
+            alert("Token exchange failed: " + (data.error_description || data.error));
+          }
+        } catch (err) {
+          console.error("❌ Error during token fetch:", err);
+          alert("Something went wrong during token exchange.");
+        }
       },
       failureCallback: (reason) => {
-        console.error("OAuth Failed:", reason);
+        console.error("❌ OAuth Failed:", reason);
         alert("Sign in failed or was cancelled.");
       }
     });
-  };
+  } catch (err) {
+    console.error("❌ Unexpected error in handleClick:", err);
+    alert("Something went wrong. Please try again.");
+  }
+};
 
   return (
     <div style={{ padding: 20 }}>
