@@ -40,7 +40,7 @@ const App = () => {
     const challenge = base64URLEncode(await sha256(verifier));
 
     const clientId = "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o";
-    const redirectUri = "https://authbloom03.onrender.com/auth-callback";
+    const redirectUri = "https://authbloom03.onrender.com";
 
     const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=`;
 
@@ -73,7 +73,7 @@ const App = () => {
         type="text"
         value={communityUrl}
         onChange={(e) => setCommunityUrl(e.target.value)}
-        placeholder="Enter Community URL 13 time"
+        placeholder="Enter Community URL 14 time"
         style={{ width: "100%", padding: 10, marginBottom: 10 }}
       />
       <button onClick={handleClick} disabled={!isTeamsReady} style={{ padding: 10 }}>

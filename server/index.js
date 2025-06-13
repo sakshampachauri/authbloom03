@@ -12,7 +12,7 @@ app.get("/health", (req, res) => {
   res.send("OK");
 });
 
-app.get("/auth-callback", (req, res) => {
+app.get("/", (req, res) => {
   console.log("value of auth callback",res)
   const code = req.query.code;
   const state = req.query.state;
@@ -37,7 +37,7 @@ app.get("/exchange-token", async (req, res) => {
       body: new URLSearchParams({
         grant_type: "authorization_code",
         code,
-        redirect_uri: "https://authbloom03.onrender.com/auth-callback",
+        redirect_uri: "https://authbloom03.onrender.com",
         client_id: "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o",
         code_verifier: verifier
       })
