@@ -44,7 +44,7 @@ const App = () => {
 
     const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid profile email&state=${encodeURIComponent(communityUrl)}&code_challenge=${challenge}&code_challenge_method=S256`;
 
-     console.log("calling authentication")
+     console.log("calling authentication",oauthUrl)
     microsoftTeams.authentication.authenticate({
       url: oauthUrl,
       width: 600,
@@ -73,7 +73,7 @@ const App = () => {
         type="text"
         value={communityUrl}
         onChange={(e) => setCommunityUrl(e.target.value)}
-        placeholder="Enter Community URL"
+        placeholder="Enter Community URL 11 time"
         style={{ width: "100%", padding: 10, marginBottom: 10 }}
       />
       <button onClick={handleClick} disabled={!isTeamsReady} style={{ padding: 10 }}>
