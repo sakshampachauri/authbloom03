@@ -42,7 +42,7 @@ const App = () => {
     const clientId = "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o";
     const redirectUri = "https://authbloom03.onrender.com/auth-callback";
 
-    const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=&state=${encodeURIComponent(communityUrl)}&code_challenge=${challenge}&code_challenge_method=S256`;
+    const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=`;
 
      console.log("calling authentication",oauthUrl)
     microsoftTeams.authentication.authenticate({
@@ -73,7 +73,7 @@ const App = () => {
         type="text"
         value={communityUrl}
         onChange={(e) => setCommunityUrl(e.target.value)}
-        placeholder="Enter Community URL 11 time"
+        placeholder="Enter Community URL 13 time"
         style={{ width: "100%", padding: 10, marginBottom: 10 }}
       />
       <button onClick={handleClick} disabled={!isTeamsReady} style={{ padding: 10 }}>
