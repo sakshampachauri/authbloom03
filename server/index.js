@@ -13,6 +13,7 @@ app.get("/health", (req, res) => {
 });
 
 app.get("/auth-callback", (req, res) => {
+  console.log("value of auth callback",res)
   const code = req.query.code;
   const state = req.query.state;
 
