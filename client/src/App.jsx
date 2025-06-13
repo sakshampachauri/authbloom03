@@ -47,7 +47,6 @@ const App = () => {
 )}&code_challenge=${challenge}&code_challenge_method=S256`;
   
      console.log("calling authentication",oauthUrl);
-     window.open(oauthUrl, "_blank");
     microsoftTeams.authentication.authenticate({
       url: oauthUrl,
       width: 600,
@@ -76,7 +75,7 @@ const App = () => {
         type="text"
         value={communityUrl}
         onChange={(e) => setCommunityUrl(e.target.value)}
-        placeholder="Enter Community URL 15 time"
+        placeholder="Enter Community URL 20 time"
         style={{ width: "20%", padding: 10, margin: "auto" }}
       />
       <button onClick={handleClick} disabled={!isTeamsReady} style={{ padding: 10 }}>
