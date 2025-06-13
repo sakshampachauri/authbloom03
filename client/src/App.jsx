@@ -5,6 +5,7 @@ const App = () => {
   const [communityUrl, setCommunityUrl] = useState("");
   const [isTeamsReady, setIsTeamsReady] = useState(false);
   const [codeVerifier, setCodeVerifier] = useState("");
+  const [token, setToken]= useState("")
 
   useEffect(() => {
     microsoftTeams.app.initialize().then(() => {
@@ -110,6 +111,7 @@ const handleClick = async () => {
           const data = await res.json();
           if (data.access_token) {
             alert("✅ Access Token: " + data.access_token);
+            setToken(data.access_token)
           } else {
             console.error("❌ Token exchange failed:", data);
             alert("Token exchange failed: " + (data.error_description || data.error));
@@ -143,6 +145,7 @@ const handleClick = async () => {
       <button onClick={handleClick} disabled={!isTeamsReady} style={{ padding: 10 }}>
         Login with Bloomfire
       </button>
+      {token&& <p>{token}</p>}
     </div>
   );
 };
