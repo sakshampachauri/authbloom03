@@ -70,6 +70,7 @@ app.get("/exchange-token", async (req, res) => {
         code,
         redirect_uri: "https://authbloom03.onrender.com/auth-callback",
         client_id: "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o",
+        client_secret:"sG4VsM_aQWIY6ikvHohxugRnFivwfg4STD-U3yXp9CY",
         code_verifier: verifier
       })
     });
