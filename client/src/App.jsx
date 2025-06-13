@@ -42,9 +42,11 @@ const App = () => {
     const clientId = "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o";
     const redirectUri = "https://authbloom03.onrender.com/auth-callback";
 
-    const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope= &state=${encodeURIComponent(
-  communityUrl
-)}&code_challenge=${challenge}&code_challenge_method=S256`;
+//     const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=&state=${encodeURIComponent(
+//   communityUrl
+// )}&code_challenge=${challenge}&code_challenge_method=S256`;
+
+const oauthUrl = 'https://persistent.bloomfire.bz/oauth/authorize?client_id=Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o&redirect_uri=https%3A%2F%2Fauthbloom03.onrender.com%2Fauth-callback&response_type=code&scope='
   
      console.log("calling authentication",oauthUrl);
     microsoftTeams.authentication.authenticate({
@@ -52,6 +54,7 @@ const App = () => {
       width: 600,
       height: 535,
       successCallback: (code) => {
+        console.log("inside success callBack")
         fetch(`/exchange-token?code=${code}&verifier=${verifier}`)
           .then(res => res.json())
           .then(data => {

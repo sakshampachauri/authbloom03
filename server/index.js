@@ -28,7 +28,7 @@ app.get("/auth-callback", (req, res) => {
 app.get("/exchange-token", async (req, res) => {
   const code = req.query.code;
   const verifier = req.query.verifier;
-
+   
   try {
     const tokenUrl = "https://persistent.bloomfire.bz/oauth/token";
     const tokenResponse = await fetch(tokenUrl, {
