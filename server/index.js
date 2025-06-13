@@ -30,7 +30,7 @@ app.get("/exchange-token", async (req, res) => {
   const verifier = req.query.verifier;
 
   try {
-    const tokenUrl = "https://internal.bloomfire.bs/oauth/token";
+    const tokenUrl = "https://persistent.bloomfire.bz/oauth/token";
     const tokenResponse = await fetch(tokenUrl, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
