@@ -42,11 +42,12 @@ const App = () => {
     const clientId = "Xd0YQo7MxmbM2CHDFHnFHsyjCqtmGS1SIaHNfT1tl0o";
     const redirectUri = "https://authbloom03.onrender.com/auth-callback";
 
-    const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=&state=${encodeURIComponent(
+    const oauthUrl =  `https://persistent.bloomfire.bz/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope= &state=${encodeURIComponent(
   communityUrl
 )}&code_challenge=${challenge}&code_challenge_method=S256`;
   
-     console.log("calling authentication",oauthUrl)
+     console.log("calling authentication",oauthUrl);
+     window.open(oauthUrl, "_blank");
     microsoftTeams.authentication.authenticate({
       url: oauthUrl,
       width: 600,
